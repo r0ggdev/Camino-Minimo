@@ -11,7 +11,7 @@ visualización clara y detallada del funcionamiento interno del algoritmo
 
 ## Instalación y Configuración entorno virtual
  
- > [!TIP] Comandos básicos: 
+ > 💡 Comandos básicos: 
  > - cd : moverse entre directorios
  > - pwd : para mostrar del directorio actual
  > - ls : para mostrar los archivos de la carpeta
@@ -22,13 +22,13 @@ visualización clara y detallada del funcionamiento interno del algoritmo
 
     ~~~PS
      # Creamos el entorno virutal
-    py -3 -m venv .SPP_env
+    py -3 -m venv .spp_env
     ~~~
 
  2. Activamos el entorno virtual con el comando
  
     ~~~PS
-    .\.SPP_env\Scripts\activate
+    .\.spp_env\Scripts\activate
     ~~~
     
  3. Instalamos los requerimientos
