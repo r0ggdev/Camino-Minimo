@@ -1,6 +1,38 @@
-body{
-    background-color: blue;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+body {
+  background-color: blue;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table,
+th,
+td {
+  border: 3px solid black;
+  padding: 3px;
+  text-align: center;
+}
+
+td {
+  width: 25px; /* Establece un ancho fijo */
+  height: 25px; /* Establece una altura fija */
+  text-align: center;
+}
+
+input[type="number"] {
+  width: 100%; /* El input ocupa el 100% del espacio de la celda */
+  height: 100%; /* El input ocupa el 100% del espacio de la celda */
+  box-sizing: border-box; /* Incluye padding en el tamaño total */
+  font-size: 10px; /* Ajusta el tamaño de la fuente si es necesario */
+  -moz-appearance: textfield; /* Elimina las flechas en Firefox */
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Elimina las flechas en Chrome y Safari */
+  margin: 0; /* Elimina el margen */
 }
