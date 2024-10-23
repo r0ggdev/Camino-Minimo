@@ -1,38 +1,77 @@
 body {
-  background-color: blue;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+    background-color: rgb(196, 1, 255);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex; /* Usar flexbox para columnas */
+    justify-content: space-between; /* Espacio entre las columnas */
+    margin-top: 20px; /* Margen superior */
+}
+
+.matrix-column {
+    flex: 1; /* La matriz ocupa menos espacio */
+    margin: 0 10px; /* Margen entre las columnas */
+}
+
+.graph-column {
+    flex: 2; /* El grafo ocupa más espacio */
+    margin: 0 10px; /* Margen entre las columnas */
 }
 
 table {
-  border-collapse: collapse;
-  margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%; /* Ocupa todo el ancho disponible */
 }
 
 table,
 th,
 td {
-  border: 3px solid black;
-  padding: 3px;
-  text-align: center;
+    border: 3px solid black;
+    padding: 3px;
+    text-align: center;
 }
 
 td {
-  width: 25px; /* Establece un ancho fijo */
-  height: 25px; /* Establece una altura fija */
-  text-align: center;
+    width: 25px; /* Ancho fijo */
+    height: 25px; /* Altura fija */
 }
 
 input[type="number"] {
-  width: 100%; /* El input ocupa el 100% del espacio de la celda */
-  height: 100%; /* El input ocupa el 100% del espacio de la celda */
-  box-sizing: border-box; /* Incluye padding en el tamaño total */
-  font-size: 10px; /* Ajusta el tamaño de la fuente si es necesario */
-  -moz-appearance: textfield; /* Elimina las flechas en Firefox */
+    width: 100%; /* Ocupa el 100% del espacio de la celda */
+    height: 100%; /* Ocupa el 100% del espacio de la celda */
+    box-sizing: border-box; /* Incluye padding en el tamaño total */
+    font-size: 10px; /* Tamaño de fuente ajustado */
+    -moz-appearance: textfield; /* Elimina flechas en Firefox */
 }
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none; /* Elimina las flechas en Chrome y Safari */
-  margin: 0; /* Elimina el margen */
+    -webkit-appearance: none; /* Elimina flechas en Chrome y Safari */
+    margin: 0; /* Elimina margen */
 }
+
+.graph-container {
+    display: flex;
+    justify-content: center; /* Centra el gráfico en su columna */
+}
+
+      .node circle {
+        stroke: #c75757;
+        stroke-width: 1.5px;
+      }
+      .link {
+        fill: none;
+        stroke: #999;
+        stroke-opacity: 0.6;
+      }
+      .selected {
+        stroke: orange;
+        stroke-width: 3px;
+      }
+      .link-label {
+        font-size: 10px;
+        fill: black;
+      }

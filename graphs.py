@@ -1,6 +1,6 @@
 import networkx as nx
 import json
-
+import os
 class GraphHandler:
     def __init__(self, matriz):
         self.matriz = matriz
@@ -19,18 +19,22 @@ class GraphHandler:
 
     def add_attributes(self):
         for node in self.graph.nodes():
-            self.graph.nodes[node]['label'] = f'Node {node+1}'
+            self.graph.nodes[node]['label'] = f'{node}'
 
     def to_json(self):
         data = {
             'nodes': [{'id': n, 'label': self.graph.nodes[n]['label']} for n in self.graph.nodes()],
-            'edges': [{'source': u, 'target': v} for u, v in self.graph.edges()]
+            'edges': [{'source': u, 'target': v, 'weight': self.graph[u][v]['weight']} for u, v in self.graph.edges()]
         }
         return json.dumps(data)
 
-    def save_json(self, filename='./json/data.json'):
+    def save_json(self, filename='./static/json/data.json'):
         self.add_attributes()
         json_data = self.to_json()
+        directory = os.path.dirname(filename)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
         with open(filename, 'w') as file:
             file.write(json_data)
 
@@ -46,4 +50,4 @@ if __name__ == "__main__":
         [14, 0, 2, 0, 9, 0]
     ]
     graph_handler = GraphHandler(matriz)
-    graph_handler.save_json('./json/data.json')
+    graph_handler.save_json('./static/json/data.json')

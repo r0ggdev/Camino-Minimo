@@ -1,21 +1,24 @@
+// Declaramos constantes
 const value = document.querySelector("#matrix_value_range");
 const input = document.querySelector("#matrix_input");
 const matrixForm = document.getElementById("matrix_form");
 const randomizeButton = document.querySelector("#randomize_button");
 const resetButton = document.querySelector("#reset_button");
 
+// Función para imprimir el tamaño de la matriz
 function printSizeMatrix(size) {
   return `Tamaño de la matriz: ${size}x${size}`;
 }
 
+// Función para generar la matriz
 function generateMatrix(size) {
   matrixForm.innerHTML = "";
   const table = document.createElement("table");
-  const matrixData = []; // Para almacenar los datos de la matriz
+  const matrixData = [];
 
   for (let i = 0; i < size; i++) {
     const row = document.createElement("tr");
-    matrixData[i] = []; // Inicializa la fila
+    matrixData[i] = [];
 
     for (let j = 0; j < size; j++) {
       const cell = document.createElement("td");
@@ -34,7 +37,7 @@ function generateMatrix(size) {
         inputCell.addEventListener("input", () => {
           updateCorrespondingCell(inputCell);
           updateMatrixData(matrixData);
-          sendMatrix(matrixData);
+          sendMatrixDebounced(matrixData); // Llamada con debounce
         });
       }
 
@@ -48,6 +51,7 @@ function generateMatrix(size) {
   sendMatrix(matrixData);
 }
 
+// Función para copiar valores
 function updateCorrespondingCell(inputCell) {
   if (parseFloat(inputCell.value) < 0) {
     inputCell.value = "";
@@ -65,25 +69,17 @@ function updateCorrespondingCell(inputCell) {
 
 function updateMatrixData(matrixData) {
   const inputs = matrixForm.querySelectorAll('input[type="number"]');
-
   inputs.forEach((input) => {
     const row = parseInt(input.getAttribute("data-row"));
     const col = parseInt(input.getAttribute("data-col"));
-
-
     if (!matrixData[row]) {
       matrixData[row] = [];
     }
-
-    if (input.disabled) {
-      matrixData[row][col] = 0; // Diagonal
-    } else {
-      matrixData[row][col] = parseInt(input.value) || 0;
-    }
+    matrixData[row][col] = input.value ? parseInt(input.value) : null; // Maneja el caso de inputs vacíos
   });
 }
 
-
+// Función para enviar la matriz
 function sendMatrix(matrixData) {
   fetch("/matrix", {
     method: "POST",
@@ -101,9 +97,17 @@ function sendMatrix(matrixData) {
     });
 }
 
+// Función de debounce
+let debounceTimer;
+function sendMatrixDebounced(matrixData) {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    sendMatrix(matrixData);
+  }, 300); // Espera 300 ms antes de enviar
+}
+
 function randomizeValues() {
   const inputs = matrixForm.querySelectorAll('input[type="number"]');
-
   inputs.forEach((input) => {
     if (!input.disabled && input.value === "") {
       const randomValue = Math.floor(Math.random() * 100);
@@ -111,10 +115,9 @@ function randomizeValues() {
       updateCorrespondingCell(input);
     }
   });
-
   const matrixData = [];
   updateMatrixData(matrixData);
-  sendMatrix(matrixData);
+  sendMatrixDebounced(matrixData); // Llamada con debounce
 }
 
 function updateMatrix() {
@@ -125,7 +128,6 @@ function updateMatrix() {
 
 function resetMatrix() {
   const inputs = matrixForm.querySelectorAll('input[type="number"]');
-
   inputs.forEach((input) => {
     const row = parseInt(input.getAttribute("data-row"));
     const col = parseInt(input.getAttribute("data-col"));
@@ -133,11 +135,12 @@ function resetMatrix() {
       input.value = "";
     }
   });
-
   const matrixData = [];
   updateMatrixData(matrixData);
-  sendMatrix(matrixData);
+  sendMatrixDebounced(matrixData); // Llamada con debounce
 }
+
+
 
 input.addEventListener("input", updateMatrix);
 randomizeButton.addEventListener("click", randomizeValues);

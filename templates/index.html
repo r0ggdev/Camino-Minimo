@@ -1,26 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <link rel="stylesheet" href="{{url_for('static', filename = '/styles.css')}}">
-    <link rel="shortcut icon" href="{{url_for('static', filename='/sources/icons/icon_graph.ico')}}" type="image/x-icon">
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename = '/styles.css')}}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{url_for('static', filename='/sources/icons/icon_graph.ico')}}"
+      type="image/x-icon"
+    />
 
     <title>Shortest Path</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Camino Minimo</h1>
 
-    <div class="form">
-        <p id = "matrix_value_range"></p>
-        <input id ="matrix_input" type="range" min="8" max="16" step="1">
+    <div class="container">
+      <div class="matrix-column">
+          <p id="matrix_value_range"></p>
+          <input id="matrix_input" type="range" min="8" max="16" step="1" />
+          <button id="randomize_button">Generar Valores Aleatorios</button>
+          <button id="reset_button" type="reset">🔄️</button>
+          <div id="matrix_form"></div>
+      </div>
+
+      <div class="graph-column">
+        <div id="graph-container">
+          <svg width="500" height="500"></svg>
+        </div>
+        <button id="saveSelection">Guardar Selección</button>
+        <p id="grap"></p>
+      </div>
     </div>
-    <button id="randomize_button">Generar Valores Aleatorios</button>
-    <button id="reset_button" type="reset">🔄️</button>
-    <div id="matrix_form"></div>
 
     <script src="{{url_for('static', filename='/script.js')}}"></script>
-</body>
+    <script src="{{url_for('static', filename='/graphs.js')}}"></script>
+  </body>
 </html>
